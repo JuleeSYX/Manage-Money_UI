@@ -1,17 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="date-wrap">
+    <ion-input
+      label-placement="stacked"
+      fill="outline"
+      value="{{ startDate | date: dateFormat() }}"
+      id="startDate" readonly>
+    </ion-input>
+    <ion-button color="light" id="open-picker">
+      {{filterName}}
+      <ion-icon slot="end" name="caret-down-outline"></ion-icon>
+    </ion-button>
+    <ion-picker trigger="open-picker" [columns]="pickerColumns" [buttons]="pickerButtons"></ion-picker>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item lines="none" class="ion-no-padding switch-wrap">
+    <ion-label slot="start">{{segment === 0?'All':segment === 1?'Top':'Chart'}}</ion-label>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+    <div class="switch" slot="end">
+      <ion-button [fill]="segment === 0?'solid':'clear'" (click)="segment = 0">
+        <ion-icon slot="icon-only" name="receipt-outline"></ion-icon>
+      </ion-button>
+      <ion-button [fill]="segment === 1?'solid':'clear'" (click)="segment = 1">
+        <ion-icon slot="icon-only" name="ribbon-outline"></ion-icon>
+      </ion-button>
+      <ion-button [fill]="segment === 2?'solid':'clear'" (click)="segment = 2">
+        <ion-icon slot="icon-only" name="pie-chart-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-item>
+
+  <app-all *ngIf="segment === 0"></app-all>
+  <app-top *ngIf="segment === 1"></app-top>
+  <app-chart *ngIf="segment === 2"></app-chart>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <label>ໃຊ້ຈ່າຍ</label>
+      <ion-label slot="end" color="danger">2,500,550</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <label>ໄດ້ຮັບ</label>
+      <ion-label slot="end" color="success">2,500,550</ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-modal trigger="startDate" [cssClass]="'center'">
+  <ng-template>
+    <ion-datetime
+      [showDefaultButtons]="true"
+      presentation="{{filterName === 'Month'?'month-year':'year'}}"
+      [(ngModel)]="startDate"
+      size="cover"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>

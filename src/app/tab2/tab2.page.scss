@@ -1,0 +1,54 @@
+
+table{
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  th {
+    height: 40px;
+    padding: 0 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #04AA6D;
+    color: white;
+    font-weight: 500;
+  }
+  td{
+    color: #505050;
+    border-bottom: 1px solid #ddd;
+    padding: 0 8px;
+    height: 40px;
+  }
+  tr:nth-child(even){background-color: #f8f8f8;}
+  .des{
+    width: 100%;
+  }
+  .action{
+    text-align: center;
+  }
+}
+
+.tb-head{
+  --background: #04AA6D;
+  color: white;
+  font-weight: 500;
+}
+ion-reorder:nth-child(odd){
+  background-color: #f8f8f8;
+}
+ion-item{
+  height: 40px;
+  --min-height: 40px;
+  font-size: 14px;
+  --background: transparent;
+  border-bottom: 1px solid #ddd;
+  color: #505050;
+}
+ion-label{
+  margin: 0;
+}
+.i-icon{
+  font-size: 17.55px;
+}
+
+
+

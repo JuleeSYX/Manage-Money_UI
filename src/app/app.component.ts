@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {}
+  swalFunc():void{
+    Swal.fire()
+  }
 }

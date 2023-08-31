@@ -1,0 +1,49 @@
+.date-wrap{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.8rem;
+}
+.switch-wrap{
+  --inner-padding-end: 0;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  ion-label{
+    margin: 0;
+  }
+  .switch{
+    background-color: #EEEEEE;
+    border-radius: 6px;
+    display: flex;
+    margin: 0;
+    padding: 0 3px;
+  }
+}
+ion-footer{
+  ion-toolbar{
+    padding: 0.2rem 0;
+    ion-item{
+      --min-height: 25px;
+      --max-height: 30px;
+      label{
+        font-size: 14px;
+      }
+      ion-label{
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  }
+}
+ion-modal {
+  &.center {
+    --width: calc(100% - 2em);
+    align-items: center;
+    --height: auto;
+    --border-radius: 8px;
+    .ion-page {
+      position: relative;
+      display: block;
+      contain: content;
+    }
+  }
+}

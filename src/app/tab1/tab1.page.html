@@ -1,17 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Payment"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-input label="ລາຍການ" label-placement="stacked" fill="outline" placeholder="-" clearInput="true"></ion-input>
+    <br />
+    <ion-input label="ຈຳນວນເງິນ" label-placement="stacked" fill="outline" type="number"></ion-input>
+  </ion-list>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="price-wrap">
+    <ion-button fill="outline" *ngFor="let amount of amountList">{{amount}}</ion-button>
+  </div>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ຊື່ລາຍການ</th>
+        <th>ວັນທີ</th>
+        <th class="amount">ຈຳນວນເງິນ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11]; let i = index">
+        <td>{{i + 1}}</td>
+        <td>ຜັກ</td>
+        <td class="date">12/8/2023</td>
+        <td class="amount">45000</td>
+      </tr>
+    </tbody>
+  </table>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" color="success">Receive</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="danger">Pay</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
