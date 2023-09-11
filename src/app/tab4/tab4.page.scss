@@ -12,3 +12,30 @@
   }
 }
 
+.serach{
+  margin-bottom: 1rem;
+  input{
+    width: 100%;
+    padding: 0.2rem 0.5rem;
+  }
+}
+table{
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  th {
+    height: 40px;
+    padding: 0 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #04AA6D;
+    color: white;
+    font-weight: 500;
+  }
+  td{
+    color: #505050;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem;
+  }
+  tr:nth-child(even){background-color: #f8f8f8;}
+}
