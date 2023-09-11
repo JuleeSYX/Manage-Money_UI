@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-tab4',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab4Page implements OnInit {
 
-  constructor() { }
+  constructor(private cookieService: CookieService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  logOut():void{
+    alert('Are you sure you want to logout.?');
+    this.cookieService.deleteAll();
+    this.router.navigateByUrl('/login');
   }
 
 }
