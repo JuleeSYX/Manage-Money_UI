@@ -1,14 +1,28 @@
 <app-header title="Payment"></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-list>
-    <ion-input label="ລາຍການ" label-placement="stacked" fill="outline" placeholder="-" clearInput="true"></ion-input>
+  <!-- <ion-list> -->
+    <div class="cate-wrap">
+      <ion-input label="ລາຍການ" label-placement="stacked" fill="outline" placeholder="-" (click)="show()" [value]="cateName" [disabled]="showList"></ion-input>
+
+        <div class="search" *ngIf="showList">
+          <ion-input label="ລາຍການ" label-placement="stacked" fill="outline" placeholder="-" clearInput="true" (click)="showFunc()" [(ngModel)]="cateName" (ngModelChange)="searchFunc()" #cateInput></ion-input>
+          <ng-container *ngIf="showList && searchList.length > 0">
+          <div class="list-wrap">
+            <p *ngFor="let cate of searchList" (click)="selectCate(cate.name)">{{cate.name}}</p>
+          </div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="showList && searchList.length > 0">
+          <div class="back-g" (click)="showList = false"></div>
+        </ng-container>
+    </div>
     <br />
-    <ion-input label="ຈຳນວນເງິນ" label-placement="stacked" fill="outline" type="number"></ion-input>
-  </ion-list>
+    <ion-input label="ຈຳນວນເງິນ" label-placement="stacked" fill="outline" type="number" [(ngModel)]="amount"></ion-input>
+  <!-- </ion-list> -->
 
   <div class="price-wrap">
-    <ion-button fill="outline" *ngFor="let amount of amountList">{{amount}}</ion-button>
+    <ion-button fill="outline" *ngFor="let amount of vm.amountList" (click)="selectAmount(amount?.amount)">{{amount?.amount}}</ion-button>
   </div>
   <br />
   <table>
@@ -33,10 +47,10 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button fill="solid" color="success">Receive</ion-button>
+      <ion-button fill="solid" color="success" (click)="saveFunc(1)">Receive</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button fill="solid" color="danger">Pay</ion-button>
+      <ion-button fill="solid" color="danger" (click)="saveFunc(0)">Pay</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
