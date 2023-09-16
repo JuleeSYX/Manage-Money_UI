@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
 
@@ -44,5 +44,16 @@ export class ApiService {
   addInv(model:{type:number, price:number, cateName: string}): Observable<any> {
     const invUrl = this.endPoin + 'api/invoice';
     return this.http.post<any>(invUrl, model, { withCredentials: true }).pipe(take(1));
+  }
+  getInv(kw: string, count:number, skip: number): Observable<any> {
+    const invUrl = this.endPoin + 'api/invoice';
+    let params = new HttpParams({
+      fromObject: {
+        kw: kw,
+        count: count,
+        skip: skip
+      }
+    });
+    return this.http.get<any>(invUrl, { withCredentials: true, params:params }).pipe(take(1));
   }
 }

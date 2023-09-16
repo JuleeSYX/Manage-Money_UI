@@ -38,11 +38,11 @@
   <ion-toolbar>
     <ion-item lines="none">
       <label>ໃຊ້ຈ່າຍ</label>
-      <ion-label slot="end" color="danger">2,500,550</ion-label>
+      <ion-label slot="end" color="danger">{{vm.paidTotal | number}}</ion-label>
     </ion-item>
     <ion-item lines="none">
       <label>ໄດ້ຮັບ</label>
-      <ion-label slot="end" color="success">2,500,550</ion-label>
+      <ion-label slot="end" color="success">{{vm.receiveTotal | number}}</ion-label>
     </ion-item>
   </ion-toolbar>
 </ion-footer>

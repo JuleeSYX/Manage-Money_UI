@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReportService } from './service/report.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  constructor(public vm: ReportService) {}
   startDate = new Date().toISOString();
   segment: number = 0;
 

@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class Tab1Page implements OnInit, OnDestroy{
   private subs = new SubSink();
   @ViewChild('cateInput') myInput: any ;
+  invList: any[] = [];
   cateName: string = '';
   searchList: any[] = [];
   showList: boolean = false;
@@ -22,6 +23,21 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.subs.unsubscribe();
   }
   ngOnInit(): void {
+    this.getInvFunc();
+  }
+  getInvFunc():void{
+    this.subs.sink = this.api.getInv('', 10, 0).subscribe({
+      next: res => {
+        this.invList = res;
+      },
+      error: err => {
+        Swal.fire({
+          icon: 'error',
+          text: err.error?.message,
+          heightAuto:false,
+        })
+      },
+    })
   }
 
   searchFunc():void{
@@ -57,7 +73,7 @@ export class Tab1Page implements OnInit, OnDestroy{
       return;
     }
     const model = {
-      type: type,
+      type: type, //1 = receive, 0 = paid
       price: this.amount,
       cateName: this.cateName,
     }
