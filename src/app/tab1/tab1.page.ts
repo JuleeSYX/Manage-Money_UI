@@ -3,6 +3,7 @@ import { VmService } from 'src/shared/service/vm.service';
 import { ApiService } from '../api/api.service';
 import { SubSink } from 'subsink';
 import Swal from 'sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-tab1',
@@ -18,7 +19,7 @@ export class Tab1Page implements OnInit, OnDestroy{
   showList: boolean = false;
 
   amount!: number;
-  constructor(public vm: VmService, private api: ApiService) {}
+  constructor(public vm: VmService, private api: ApiService, private cookieService: CookieService) {}
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
@@ -26,7 +27,7 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.getInvFunc();
   }
   getInvFunc():void{
-    this.subs.sink = this.api.getInv('', 10, 0).subscribe({
+    this.subs.sink = this.api.getInvToday('', 100, 0).subscribe({
       next: res => {
         this.invList = res;
       },
@@ -72,10 +73,12 @@ export class Tab1Page implements OnInit, OnDestroy{
       })
       return;
     }
+    const token = this.cookieService.get('auth-token');
     const model = {
       type: type, //1 = receive, 0 = paid
       price: this.amount,
       cateName: this.cateName,
+      token: token
     }
     this.subs.sink = this.api.addInv(model).subscribe({
       next: res => {
@@ -86,6 +89,29 @@ export class Tab1Page implements OnInit, OnDestroy{
           timer: 1000,
           heightAuto:false,
         })
+
+        this.invList.push(
+          {
+            _id: res._id,
+            type: res.type,
+            price: res.price,
+            createdAt: res.createdAt,
+            category: {
+                _id: res.cate_id,
+                name: this.cateName,
+                description: "",
+                image: ""
+            },
+            store: {
+                _id: res.store_id,
+                name: ""
+            },
+            user: {
+                _id: res.user_id,
+                fullname: ""
+            }
+          }
+        );
         this.amount = 0;
         this.cateName = '';
       },

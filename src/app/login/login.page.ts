@@ -30,6 +30,7 @@ export class LoginPage implements OnInit, OnDestroy {
       }
       this.subs.sink = this.api.login(model).subscribe({
         next: (res) => {
+          this.cookieService.set('auth-token', res);
           Swal.fire({
             // position: 'top-end',
             icon: 'success',

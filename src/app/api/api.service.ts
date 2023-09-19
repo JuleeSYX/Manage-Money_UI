@@ -8,8 +8,8 @@ import { Observable, take } from 'rxjs';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  endPoin = 'http://localhost:8080/';
-  imageUrl = 'http://localhost:8080/files/';
+  endPoin = 'https://manage-money-api.vercel.app/';
+  imageUrl = 'https://manage-money-api.vercel.app/files/';
 
   login(model: { username: string, password: string }): Observable<any> {
     const loginUrl = this.endPoin + 'api-login/login';
@@ -41,12 +41,23 @@ export class ApiService {
     const amountUrl = this.endPoin + `api/price?id=${id}`;
     return this.http.put<any>(amountUrl, model, { withCredentials: true }).pipe(take(1));
   }
-  addInv(model:{type:number, price:number, cateName: string}): Observable<any> {
+  addInv(model:{type:number, price:number, cateName: string, token:string}): Observable<any> {
     const invUrl = this.endPoin + 'api/invoice';
     return this.http.post<any>(invUrl, model, { withCredentials: true }).pipe(take(1));
   }
   getInv(kw: string, count:number, skip: number): Observable<any> {
     const invUrl = this.endPoin + 'api/invoice';
+    let params = new HttpParams({
+      fromObject: {
+        kw: kw,
+        count: count,
+        skip: skip
+      }
+    });
+    return this.http.get<any>(invUrl, { withCredentials: true, params:params }).pipe(take(1));
+  }
+  getInvToday(kw: string, count:number, skip: number): Observable<any> {
+    const invUrl = this.endPoin + 'api/invoice-today';
     let params = new HttpParams({
       fromObject: {
         kw: kw,
