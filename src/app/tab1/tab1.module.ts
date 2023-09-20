@@ -6,6 +6,7 @@ import { Tab1Page } from './tab1.page';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { HeaderModule } from '../header/header.module';
+import { SpinnerModule } from '../loader/spinner/spinner.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HeaderModule } from '../header/header.module';
     FormsModule,
     Tab1PageRoutingModule,
     HeaderModule,
+    SpinnerModule
   ],
-  declarations: [Tab1Page]
+  declarations: [Tab1Page],
 })
 export class Tab1PageModule {}

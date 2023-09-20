@@ -8,13 +8,15 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
 import { AllComponent } from './components/all/all.component';
 import { TopComponent } from './components/top/top.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { SpinnerModule } from '../loader/spinner/spinner.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab3PageRoutingModule
+    Tab3PageRoutingModule,
+    SpinnerModule
   ],
   declarations: [Tab3Page, AllComponent, TopComponent, ChartComponent]
 })

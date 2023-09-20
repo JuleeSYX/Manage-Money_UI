@@ -41,7 +41,7 @@ export class ApiService {
     const amountUrl = this.endPoin + `api/price?id=${id}`;
     return this.http.put<any>(amountUrl, model, { withCredentials: true }).pipe(take(1));
   }
-  addInv(model:{type:number, price:number, cateName: string, token:string}): Observable<any> {
+  addInv(model:{type:number, price:number, cateName: string, token:any}): Observable<any> {
     const invUrl = this.endPoin + 'api/invoice';
     return this.http.post<any>(invUrl, model, { withCredentials: true }).pipe(take(1));
   }

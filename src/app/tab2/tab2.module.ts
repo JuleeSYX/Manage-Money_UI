@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { HeaderModule } from "../header/header.module";
+import { SpinnerModule } from '../loader/spinner/spinner.module';
 
 @NgModule({
     declarations: [Tab2Page],
@@ -14,6 +15,7 @@ import { HeaderModule } from "../header/header.module";
         FormsModule,
         Tab2PageRoutingModule,
         HeaderModule,
+        SpinnerModule
     ]
 })
 export class Tab2PageModule {}

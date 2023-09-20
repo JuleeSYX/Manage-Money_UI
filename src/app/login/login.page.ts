@@ -19,7 +19,8 @@ export class LoginPage implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
   ngOnInit() {
-    this.cookieService.deleteAll();
+    localStorage.clear();
+    localStorage.removeItem('auth-token');
   }
 
   login():void{
@@ -30,7 +31,7 @@ export class LoginPage implements OnInit, OnDestroy {
       }
       this.subs.sink = this.api.login(model).subscribe({
         next: (res) => {
-          this.cookieService.set('auth-token', res);
+          localStorage.setItem('auth-token', res);
           Swal.fire({
             // position: 'top-end',
             icon: 'success',

@@ -73,7 +73,7 @@ export class Tab1Page implements OnInit, OnDestroy{
       })
       return;
     }
-    const token = this.cookieService.get('auth-token');
+    const token = localStorage.getItem('auth-token');
     const model = {
       type: type, //1 = receive, 0 = paid
       price: this.amount,

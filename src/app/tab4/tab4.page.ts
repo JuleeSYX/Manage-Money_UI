@@ -15,9 +15,10 @@ export class Tab4Page implements OnInit {
   }
 
   logOut():void{
-    alert('Are you sure you want to logout.?');
-    this.cookieService.deleteAll();
-    this.router.navigateByUrl('/login');
+    if (confirm('Are you sure you want to logout.?')) {
+      this.cookieService.deleteAll();
+      this.router.navigateByUrl('/login');
+    }
   }
 
 }
