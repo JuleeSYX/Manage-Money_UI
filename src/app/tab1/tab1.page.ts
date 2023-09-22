@@ -12,6 +12,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class Tab1Page implements OnInit, OnDestroy{
   private subs = new SubSink();
+  startDate = new Date();
+  endDate = new Date();
   @ViewChild('cateInput') myInput: any ;
   invList: any[] = [];
   cateName: string = '';
@@ -19,6 +21,9 @@ export class Tab1Page implements OnInit, OnDestroy{
   showList: boolean = false;
 
   amount!: number;
+
+  paidTotal: number = 0;
+  receiveTotal: number = 0;
   constructor(public vm: VmService, private api: ApiService, private cookieService: CookieService) {}
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -30,6 +35,7 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.subs.sink = this.api.getInvToday('', 100, 0).subscribe({
       next: res => {
         this.invList = res;
+        this.summary();
       },
       error: err => {
         Swal.fire({
@@ -40,7 +46,10 @@ export class Tab1Page implements OnInit, OnDestroy{
       },
     })
   }
-
+  summary():void{
+    this.paidTotal = this.invList.filter(f => f.type == 0).reduce((s, c) => s += c.price, 0);
+    this.receiveTotal = this.invList.filter(f => f.type == 1).reduce((s, c) => s += c.price, 0);
+  }
   searchFunc():void{
     this.searchList = this.cateName.length > 0?this.vm.cateList.filter(f => f.name.includes(this.cateName)): [];
   }
@@ -112,6 +121,7 @@ export class Tab1Page implements OnInit, OnDestroy{
             }
           }
         );
+        this.summary();
         this.amount = 0;
         this.cateName = '';
       },
