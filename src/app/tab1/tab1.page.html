@@ -30,16 +30,22 @@
       <tr>
         <th>#</th>
         <th>ຊື່ລາຍການ</th>
-        <th>ວັນທີ</th>
+        <!-- <th>ວັນທີ</th> -->
         <th class="amount">ຈຳນວນເງິນ</th>
+        <th class="action">ແກ້ໄຂ</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let inv of invList; let i = index">
+      <tr *ngFor="let inv of invList; let i = index" [ngClass]="{'cancel': inv.status === 0}">
         <td>{{invList.length - i}}</td>
         <td>{{inv?.category?.name}}</td>
-        <td class="date">{{inv.createdAt | date:"dd/MM/yyyy hh:mm"}}</td>
+        <!-- <td class="date">{{inv.createdAt | date:"dd/MM/yyyy hh:mm"}}</td> -->
         <td class="amount piad" [ngClass]="{'act-amount': inv.type === 1}">{{inv.price | number}}</td>
+        <td class="action">
+          <ion-button shape="round" fill="clear" size="small" (click)="cancelFunc(inv._id)" [disabled]="inv.status === 0">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </td>
       </tr>
     </tbody>
   </table>

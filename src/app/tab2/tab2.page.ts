@@ -11,11 +11,28 @@ import { VmService } from 'src/shared/service/vm.service';
 })
 export class Tab2Page implements OnInit{
   private subs = new SubSink();
-  cateTab: boolean = true;
-
+  categoryList: any[] = [];
+  cateTab: boolean = false;
+  invList: any[] = [];
+  kw: string = '';
   constructor(private api: ApiService, public vm: VmService) {}
   ngOnInit(): void {
-
+    this.categoryList = this.vm.cateList;
+    this.getInvFunc();
+  }
+  getInvFunc():void{
+    this.subs.sink = this.api.getInvToday('', 100, 0).subscribe({
+      next: res => {
+        this.invList = res;
+      },
+      error: err => {
+        Swal.fire({
+          icon: 'error',
+          text: err.error?.message,
+          heightAuto:false,
+        })
+      },
+    })
   }
 
   async addFunc(id: string, value: string, add: boolean){
@@ -125,5 +142,8 @@ export class Tab2Page implements OnInit{
     // where the gesture ended. This method can also be called directly
     // by the reorder group
     ev.detail.complete();
+  }
+  searchFunc(value: any): void{
+    this.categoryList = this.vm.cateList.filter(f => f.name.includes(value));
   }
 }

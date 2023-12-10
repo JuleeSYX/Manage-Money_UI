@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReportService } from './service/report.service';
 
 @Component({
@@ -6,10 +6,13 @@ import { ReportService } from './service/report.service';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
 
   constructor(public vm: ReportService) {}
   startDate = new Date().toISOString();
+  startOfMonth = new Date();
+  endOfMonth = new Date();
+
   segment: number = 0;
 
   filterName: string = 'Month';
@@ -41,7 +44,17 @@ export class Tab3Page {
       },
     },
   ];
-
+  ngOnInit(): void {
+    const today = new Date(this.startDate);
+    this.startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  }
+  logDate():void{
+    const today = new Date(this.startDate);
+    this.startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    console.log(this.startOfMonth, ',', this.endOfMonth, ',', this.startDate);
+  }
   dateFormat():string{
     return this.filterName === 'Month'?'MM/yyyy':'yyyy';
   }

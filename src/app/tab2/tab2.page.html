@@ -1,18 +1,24 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
-    <ion-segment value="categories">
+    <ion-segment value="invoice">
+      <ion-segment-button value="invoice" (click)="cateTab = false">
+        <ion-label>Invoices</ion-label>
+      </ion-segment-button>
       <ion-segment-button value="categories" (click)="cateTab = true">
         <ion-label>Categories</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="amount" (click)="cateTab = false;">
-        <ion-label>Amount</ion-label>
-      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ng-container *ngIf="cateTab">
+  <ion-input label="ຄົ້ນຫາ" label-placement="stacked" fill="outline" type="text" placeholder="ປ້ອນຊື່..." [(ngModel)]="kw" (ngModelChange)="searchFunc(kw)"></ion-input>
+  <br>
+  <!-- <ng-container *ngIf="!cateTab">
+    <h1>Hello world</h1>
+  </ng-container> -->
+
+  <!-- <ng-container *ngIf="cateTab"> -->
     <table>
       <thead>
         <tr>
@@ -22,8 +28,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cate of vm.cateList; let i = index">
-          <td>{{vm.cateList.length - i}}</td>
+        <tr *ngFor="let cate of categoryList; let i = index">
+          <td>{{categoryList.length - i}}</td>
           <td class="des">{{cate.name}}</td>
           <td class="action">
             <ion-button shape="round" fill="clear" size="small" (click)="addFunc(cate._id, cate.name, false)">
@@ -33,48 +39,10 @@
         </tr>
       </tbody>
     </table>
-  </ng-container>
-
-  <ng-container *ngIf="!cateTab">
-    <!-- <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
-      <ion-item lines="full" class="tb-head">
-        <ion-label>ຈຳນວນເງິນ</ion-label>
-        <ion-label slot="end">ແກ້ໄຂ</ion-label>
-      </ion-item>
-
-      <ion-reorder *ngFor="let price of priceList">
-        <ion-item lines="full" >
-          <ion-label>{{price.amount}}</ion-label>
-          <ion-button shape="round" fill="clear" size="small" slot="end" (click)="addAmount(price._id, price.amount, price.index, false)">
-            <ion-icon name="open-outline" class="i-icon"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-reorder>
-    </ion-reorder-group> -->
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th class="des">ຈຳນວນເງິນ</th>
-          <th class="action">ແກ້ໄຂ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let price of vm.amountList; let i = index">
-          <td>{{vm.amountList.length - i}}</td>
-          <td class="des">{{price.amount}}</td>
-          <td class="action">
-            <ion-button shape="round" fill="clear" size="small" (click)="addAmount(price._id, price.amount, price.index, false)">
-              <ion-icon name="open-outline"></ion-icon>
-            </ion-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
+  <!-- </ng-container> -->
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button size="small" (click)="cateTab?addFunc('', '', true):addAmount('', 0, 0, true)">
+    <ion-fab-button size="small" (click)="addFunc('', '', true)">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

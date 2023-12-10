@@ -47,8 +47,8 @@ export class Tab1Page implements OnInit, OnDestroy{
     })
   }
   summary():void{
-    this.paidTotal = this.invList.filter(f => f.type == 0).reduce((s, c) => s += c.price, 0);
-    this.receiveTotal = this.invList.filter(f => f.type == 1).reduce((s, c) => s += c.price, 0);
+    this.paidTotal = this.invList.filter(f => f.type == 0 && f.status == 1).reduce((s, c) => s += c.price, 0);
+    this.receiveTotal = this.invList.filter(f => f.type == 1 && f.status == 1).reduce((s, c) => s += c.price, 0);
   }
   searchFunc():void{
     this.searchList = this.cateName.length > 0?this.vm.cateList.filter(f => f.name.includes(this.cateName)): [];
@@ -129,6 +129,40 @@ export class Tab1Page implements OnInit, OnDestroy{
         Swal.fire({
           text: err.error,
           heightAuto: false,
+        })
+      }
+    })
+  }
+
+  cancelFunc(invId:any):void{
+    Swal.fire({
+      text: 'ຍົກເລິກໃບບີນ',
+      input: 'text',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ຕົກລົງ',
+      cancelButtonText: 'ປິດ',
+      showCancelButton: true,
+      heightAuto: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const token = localStorage.getItem('auth-token');
+        const model = {
+          id: invId,
+          remark: result.value,
+          token: token,
+        }
+        this.subs.sink = this.api.cancelInv(model).subscribe({
+          next: res => {
+            this.invList.find(f => f._id === res._id).status = res.status;
+          },
+          error: err => {
+            Swal.fire({
+              icon: 'error',
+              text: err.error?.message,
+              heightAuto:false,
+            })
+          },
         })
       }
     })

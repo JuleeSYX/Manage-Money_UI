@@ -77,6 +77,9 @@ table{
   .amount{
     text-align: right;
   }
+  .action{
+    text-align: center;
+  }
   .piad{
     color: #ED5367;
   }
@@ -86,6 +89,12 @@ table{
   .date{
     color: #7D7D7D;
     font-size: 12px;
+  }
+}
+.cancel{
+  td{
+    color: #cfcfcf !important;
+    text-decoration: line-through;
   }
 }
 ion-toolbar{

@@ -3,7 +3,7 @@
     <ion-input
       label-placement="stacked"
       fill="outline"
-      value="{{ startDate | date: dateFormat() }}"
+      value="{{ startDate | date: 'MM/yyyy' }}"
       id="startDate" readonly>
     </ion-input>
     <ion-button color="light" id="open-picker">
@@ -29,7 +29,7 @@
     </div>
   </ion-item>
 
-  <app-all *ngIf="segment === 0"></app-all>
+  <app-all [startOfMonth]="startOfMonth" [endOfMonth]="endOfMonth" *ngIf="segment === 0"></app-all>
   <app-top *ngIf="segment === 1"></app-top>
   <app-chart *ngIf="segment === 2"></app-chart>
 </ion-content>
@@ -53,6 +53,7 @@
       [showDefaultButtons]="true"
       presentation="{{filterName === 'Month'?'month-year':'year'}}"
       [(ngModel)]="startDate"
+      (ngModelChange)="logDate()"
       size="cover"
     ></ion-datetime>
   </ng-template>
